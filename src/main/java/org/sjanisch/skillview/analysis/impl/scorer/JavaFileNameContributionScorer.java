@@ -52,7 +52,7 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 
 		if (contribution.getPath().trim().toLowerCase().endsWith(JAVA_FILE_SUFFIX)) {
 			return Collections.singleton(
-					ContributionScore.of(SkillTags.JAVA, 1.0, ORIGINATOR, contribution.getContributionTime()));
+					ContributionScore.of(SkillTags.JAVA, 1.0, ORIGINATOR));
 		}
 
 		return Collections.emptySet();

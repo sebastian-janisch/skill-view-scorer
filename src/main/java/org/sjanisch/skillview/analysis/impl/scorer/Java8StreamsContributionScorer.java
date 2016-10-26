@@ -23,7 +23,6 @@ SOFTWARE.
  */
 package org.sjanisch.skillview.analysis.impl.scorer;
 
-import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -77,7 +76,7 @@ public class Java8StreamsContributionScorer implements ContributionScorer {
 		List<ContributionScore> result = diff
 				.getTouchedContent()
 				.stream()
-				.map(toContributionScore(contribution.getContributionTime()))
+				.map(toContributionScore())
 				.filter(score -> score != null)
 				.collect(Collectors.toList());
 		// @formatter:on
@@ -85,7 +84,7 @@ public class Java8StreamsContributionScorer implements ContributionScorer {
 		return result;
 	}
 
-	private Function<String, ContributionScore> toContributionScore(Instant contributionTime) {
+	private Function<String, ContributionScore> toContributionScore() {
 		return content -> {
 			double score = 0.0;
 			if (content.contains(".stream()")) {
@@ -94,7 +93,7 @@ public class Java8StreamsContributionScorer implements ContributionScorer {
 			if (content.contains(".parallelStream()")) {
 				++score;
 			}
-			return score > 0 ? ContributionScore.of(SkillTags.JAVA8_STREAMS, score, ORIGINATOR, contributionTime) : null;
+			return score > 0 ? ContributionScore.of(SkillTags.JAVA8_STREAMS, score, ORIGINATOR) : null;
 		};
 	}
 
