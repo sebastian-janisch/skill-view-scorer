@@ -32,10 +32,11 @@ import org.sjanisch.skillview.core.analysis.api.ContributionScorer;
 import org.sjanisch.skillview.core.analysis.api.ScoreOriginator;
 import org.sjanisch.skillview.core.analysis.impl.SkillTags;
 import org.sjanisch.skillview.core.contribution.api.Contribution;
+import org.sjanisch.skillview.core.contribution.api.ContributionItem;
 
 /**
- * Scores {@code 1} if the {@link Contribution#getPath() contribution path} ends
- * in {@code .java} (case insensitive) and nothing else wise.
+ * Scores {@code 1} for each {@link ContributionItem#getPath() contribution
+ * path} that ends in {@code .java} (case insensitive) and {@code 0} else wise.
  * 
  * @author sebastianjanisch
  *
@@ -50,12 +51,15 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 	public Collection<ContributionScore> score(Contribution contribution) {
 		Objects.requireNonNull(contribution, "contribution");
 
-		if (contribution.getPath().trim().toLowerCase().endsWith(JAVA_FILE_SUFFIX)) {
-			return Collections.singleton(
-					ContributionScore.of(SkillTags.JAVA, 1.0, ORIGINATOR));
+		int fileCount = 0;
+
+		for (ContributionItem contributionItem : contribution.getContributionItems()) {
+			if (contributionItem.getPath().trim().toLowerCase().endsWith(JAVA_FILE_SUFFIX)) {
+				++fileCount;
+			}
 		}
 
-		return Collections.emptySet();
+		return Collections.singleton(ContributionScore.of(SkillTags.JAVA, fileCount, ORIGINATOR));
 	}
 
 }
