@@ -29,7 +29,6 @@ import java.util.Objects;
 
 import org.sjanisch.skillview.core.analysis.api.ContributionScore;
 import org.sjanisch.skillview.core.analysis.api.ContributionScorer;
-import org.sjanisch.skillview.core.analysis.api.ScoreOriginator;
 import org.sjanisch.skillview.core.analysis.impl.SkillTags;
 import org.sjanisch.skillview.core.contribution.api.Contribution;
 import org.sjanisch.skillview.core.contribution.api.ContributionItem;
@@ -44,8 +43,6 @@ import org.sjanisch.skillview.core.contribution.api.ContributionItem;
 public class JavaFileNameContributionScorer implements ContributionScorer {
 
 	private static final String JAVA_FILE_SUFFIX = ".java";
-	private static final ScoreOriginator ORIGINATOR = ScoreOriginator
-			.of(JavaFileNameContributionScorer.class.getName());
 
 	@Override
 	public Collection<ContributionScore> score(Contribution contribution) {
@@ -59,7 +56,7 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 			}
 		}
 
-		return Collections.singleton(ContributionScore.of(SkillTags.JAVA, fileCount, ORIGINATOR));
+		return Collections.singleton(ContributionScore.of(SkillTags.JAVA, fileCount));
 	}
 
 }
