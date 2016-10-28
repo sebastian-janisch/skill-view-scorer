@@ -59,4 +59,8 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 		return Collections.singleton(ContributionScore.of(SkillTags.JAVA, fileCount));
 	}
 
+	@Override
+	public double getNeutralScore() {
+		return 0;
+	}
 }
