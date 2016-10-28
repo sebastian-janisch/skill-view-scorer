@@ -21,17 +21,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-package org.sjanisch.skillview.analysis.impl.scorer;
+package org.sjanisch.skillview.scorer;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-import org.sjanisch.skillview.analysis.api.ContributionScore;
-import org.sjanisch.skillview.analysis.api.ContributionScorer;
-import org.sjanisch.skillview.analysis.api.ScoreOriginator;
-import org.sjanisch.skillview.analysis.impl.SkillTags;
-import org.sjanisch.skillview.contribution.api.Contribution;
+import org.sjanisch.skillview.core.analysis.api.ContributionScore;
+import org.sjanisch.skillview.core.analysis.api.ContributionScorer;
+import org.sjanisch.skillview.core.analysis.api.ScoreOriginator;
+import org.sjanisch.skillview.core.analysis.impl.SkillTags;
+import org.sjanisch.skillview.core.contribution.api.Contribution;
 
 /**
  * Scores {@code 1} if the {@link Contribution#getPath() contribution path} ends
