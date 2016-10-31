@@ -23,12 +23,12 @@ SOFTWARE.
  */
 package org.sjanisch.skillview.scorer;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
+import java.util.OptionalDouble;
 
-import org.sjanisch.skillview.core.analysis.api.ContributionScore;
 import org.sjanisch.skillview.core.analysis.api.ContributionScorer;
+import org.sjanisch.skillview.core.analysis.api.ContributionScorerDefinition;
+import org.sjanisch.skillview.core.analysis.api.ScoreOriginator;
 import org.sjanisch.skillview.core.analysis.impl.SkillTags;
 import org.sjanisch.skillview.core.contribution.api.Contribution;
 import org.sjanisch.skillview.core.contribution.api.ContributionItem;
@@ -45,7 +45,7 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 	private static final String JAVA_FILE_SUFFIX = ".java";
 
 	@Override
-	public Collection<ContributionScore> score(Contribution contribution) {
+	public OptionalDouble score(Contribution contribution) {
 		Objects.requireNonNull(contribution, "contribution");
 
 		int fileCount = 0;
@@ -56,11 +56,11 @@ public class JavaFileNameContributionScorer implements ContributionScorer {
 			}
 		}
 
-		return Collections.singleton(ContributionScore.of(SkillTags.JAVA, fileCount));
+		return OptionalDouble.of(fileCount);
 	}
 
 	@Override
-	public double getNeutralScore() {
-		return 0;
+	public ContributionScorerDefinition getDefinition() {
+		return ContributionScorerDefinition.of(ScoreOriginator.of(getClass().getName()), SkillTags.JAVA, 0.0);
 	}
 }
